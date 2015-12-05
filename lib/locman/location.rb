@@ -1,5 +1,5 @@
 module Locman
-  # Yolo
+  # This represents a single location point.
   class Location
     # @return [Float] Latitude coordinate of the location.
     attr_accessor :latitude
@@ -38,7 +38,7 @@ module Locman
     end
 
     # Creates a new Locman::Location instance.
-    # @param options [Hash] Attributes that will beassigned on instance creation
+    # @param options [Hash] Attributes that will be assigned on instance creation
     # @return [Locman::Location]
     def initialize(options = {})
       options.each { |key, value| send("#{key}=", value) }
