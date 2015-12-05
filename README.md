@@ -18,7 +18,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Initialize a new **LocMan::Manager**, request for user authorization:
+
+```ruby
+@manager = Locman::Manager.new(
+  accuracy: :ten_meters,
+  distance_filter: 20 # in meter
+)
+
+@manager.after_authorize = lambda do |authorized|
+  puts "Authorized!" if authorized
+end
+
+@manager.authorize!
+```
+
+Start receiving location updates:
+
+```ruby
+@manager.on_update = lambda do |locations|
+  locations.each { |loc| puts "(#{loc.latitude}, #{loc.longitude})" }
+end
+
+@manager.start!
+```
 
 ## License
 
