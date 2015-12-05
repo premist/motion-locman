@@ -1,7 +1,17 @@
 module Locman
+  # This wraps CLLocationManager in more Ruby way.
   class Manager
-    attr_accessor :accuracy, :distance_filter, :on_update, :on_error
+    # @return [Symbol] Desired accuracy of the location data.
+    attr_accessor :accuracy
 
+    # @return [Integer] The minimum horizontal distance threshold for on_update event.
+    attr_accessor :distance_filter
+
+    # @return [Proc] Proc function that will be called when there is a new location retrieval.
+    attr_accessor :on_update
+
+    # @return [Proc] Proc function that will be called when there is an error while retrieving the location.
+    attr_accessor :on_error
     AUTHORIZED_CONSTS = [
       KCLAuthorizationStatusAuthorized,
       KCLAuthorizationStatusAuthorizedAlways,
