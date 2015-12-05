@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-Initialize a new **LocMan::Manager**, request for user authorization:
+Initialize a new **Locman::Manager**, request for user authorization:
 
 ```ruby
 @manager = Locman::Manager.new(
