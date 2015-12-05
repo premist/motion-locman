@@ -12,18 +12,22 @@ module Locman
 
     # @return [Proc] Proc function that will be called when there is an error while retrieving the location.
     attr_accessor :on_error
+
+    # @!visibility private
     AUTHORIZED_CONSTS = [
       KCLAuthorizationStatusAuthorized,
       KCLAuthorizationStatusAuthorizedAlways,
       KCLAuthorizationStatusAuthorizedWhenInUse
     ]
 
+    # @!visibility private
     NOT_AUTHORIZED_CONSTS = [
       KCLAuthorizationStatusNotDetermined,
       KCLAuthorizationStatusRestricted,
       KCLAuthorizationStatusDenied
     ]
 
+    # @!visibility private
     ACCURACY_MAP = {
       navigation: KCLLocationAccuracyBestForNavigation,
       best: KCLLocationAccuracyBest,
@@ -33,13 +37,20 @@ module Locman
       three_kilometers: KCLLocationAccuracyThreeKilometers
     }
 
+    # Creates a new Locman::Location instance.
+    # @param options [Hash] Attributes that will be assigned on instance creation
+    # @return [Locman::Manager]
     def initialize(params = {})
       params.each { |key, value| send("#{key}=", value) }
 
       @accuracy ||= :best
       @distance_filter ||= 0
+
+      self
     end
 
+    # Sets a desired accuracy.
+    # @param accuracy [Symbol] Desired accuracy of the location data.
     def accuracy=(accuracy)
       fail(ArgumentError, "Invalid accuracy: #{accuracy}") if ACCURACY_MAP[accuracy].nil?
       @accuracy = accuracy
