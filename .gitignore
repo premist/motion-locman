@@ -16,3 +16,5 @@ nbproject
 .sass-cache
 .idea
 .dat*.*
+.yardoc
+doc/*

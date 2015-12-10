@@ -13,6 +13,9 @@ module Locman
     # @return [Proc] Proc function that will be called when there is an error while retrieving the location.
     attr_accessor :on_error
 
+    # @return [Proc] Proc function that will be called when there is a new visit event.
+    attr_accessor :on_visit
+
     # @!visibility private
     AUTHORIZED_CONSTS = [
       KCLAuthorizationStatusAuthorized,
@@ -99,6 +102,14 @@ module Locman
       manager.startMonitoringSignificantLocationChanges
     end
 
+    def start_monitor_visits!
+      manager.startMonitoringVisits
+    end
+
+    def stop_monitor_visits!
+      manager.stopMonitoringVisits
+    end
+
     def stop_monitor!
       manager.stopMonitoringSignificantLocationChanges
     end
@@ -111,6 +122,11 @@ module Locman
     def on_error=(on_error)
       fail(ArgumentError, "Must provide proc") unless on_error.is_a?(Proc)
       @on_error = on_error
+    end
+
+    def on_visit=(on_visit)
+      fail(ArgumentError, "Must provide proc") unless on_error.is_a?(Proc)
+      @on_visit = on_visit
     end
 
     # Delegates
@@ -129,6 +145,12 @@ module Locman
       end
 
       @on_update.call(locations) unless @on_update.nil?
+    end
+
+    def locationManager(manager, didVisit: cl_visit)
+      visit = Locman::Visit.create_from_cl_visit(cl_visit)
+
+      @on_visit.call(visit) unless @on_visit.nil?
     end
 
     private
