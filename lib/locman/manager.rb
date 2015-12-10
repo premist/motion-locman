@@ -125,7 +125,7 @@ module Locman
     end
 
     def on_visit=(on_visit)
-      fail(ArgumentError, "Must provide proc") unless on_error.is_a?(Proc)
+      fail(ArgumentError, "Must provide proc") unless on_visit.is_a?(Proc)
       @on_visit = on_visit
     end
 
