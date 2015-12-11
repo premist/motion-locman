@@ -7,6 +7,9 @@ module Locman
     # @return [Integer] The minimum horizontal distance threshold for on_update event.
     attr_accessor :distance_filter
 
+    # @return [Boolean] Set whether location should be updated in the background or not.
+    attr_accessor :background
+
     # @return [Proc] Proc function that will be called when there is a new location retrieval.
     attr_accessor :on_update
 
@@ -56,7 +59,24 @@ module Locman
     # @param accuracy [Symbol] Desired accuracy of the location data.
     def accuracy=(accuracy)
       fail(ArgumentError, "Invalid accuracy: #{accuracy}") if ACCURACY_MAP[accuracy].nil?
+      manager.desiredAccuracy = ACCURACY_MAP[accuracy]
       @accuracy = accuracy
+    end
+
+    def distance_filter=(distance_filter)
+      fail(ArgumentError, "Distance filter should be integer") unless distance_filter.is_a?(Integer)
+      manager.distanceFilter = distance_filter
+      @distance_filter = distance_filter
+    end
+
+    # Sets whether location should be updated on the background or not.
+    def background=(background)
+      if !background.is_a?(TrueClass) || !background.is_a?(FalseClass)
+        fail(ArgumentError, "Background should be boolean")
+      end
+
+      manager.allowsBackgroundLocationUpdates = background
+      @background = background
     end
 
     def after_authorize=(after_authorize)
@@ -96,21 +116,11 @@ module Locman
       nil
     end
 
-    def after_authorize=(after_authorize)
-      fail(ArgumentError, "Must provide proc") unless after_authorize.is_a?(Proc)
-      @after_authorize = after_authorize
-    end
-
-    def start!(params = {})
-      params[:background] ||= false
-
+    def start!
       if CLLocationManager.authorizationStatus != KCLAuthorizationStatusAuthorized
         fail(Exception, "Location permission is not authorized by user")
       end
 
-      manager.desiredAccuracy = ACCURACY_MAP[@accuracy]
-      manager.distanceFilter = @distance_filter
-      manager.allowsBackgroundLocationUpdates = true if params[:background]
       manager.startUpdatingLocation
     end
 
