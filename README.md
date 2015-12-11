@@ -1,6 +1,8 @@
-# motion-locman
+motion-locman
+=============
 
 Simple and easy location monitoring for RubyMotion
+
 
 ## Installation
 
@@ -15,6 +17,23 @@ And then execute:
 Or install it yourself as:
 
     $ gem install motion-locman
+
+
+## Preparing Rakefile
+
+Before you start, you need to add **NSLocationAlwaysUsageDescription** and **NSLocationWhenInUseUsageDescription** key to the Info.plist with appropriate message. For example, add this on your `Motion::Project::App.setup` block:
+
+```ruby
+app.info_plist["NSLocationAlwaysUsageDescription"] = "We utilize location data to enhance your app experience."
+app.info_plist["NSLocationWhenInUseUsageDescription"] = "We utilize location data to enhance your app experience."
+```
+
+In addition, if you want to get an location data update on background, add this to your `Motion::Project::App::Setup` block:
+
+```ruby
+app.info_plist["UIBackgroundModes"] = ["location"]
+```
+
 
 ## Usage
 
