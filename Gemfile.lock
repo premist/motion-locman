@@ -1,19 +1,19 @@
 PATH
   remote: .
   specs:
-    motion-locman (0.1.0)
+    motion-locman (0.2.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    rake (10.4.2)
+    rake (0.9.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   motion-locman!
-  rake
+  rake (~> 0)
 
 BUNDLED WITH
    1.10.6
