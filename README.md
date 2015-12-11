@@ -1,6 +1,6 @@
 # motion-locman
 
-Simple location library for Rubymotion
+Simple and easy location monitoring for RubyMotion
 
 ## Installation
 
