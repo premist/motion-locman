@@ -59,6 +59,26 @@ module Locman
       @accuracy = accuracy
     end
 
+    def after_authorize=(after_authorize)
+      fail(ArgumentError, "Must provide proc") unless after_authorize.is_a?(Proc)
+      @after_authorize = after_authorize
+    end
+
+    def on_update=(on_update)
+      fail(ArgumentError, "Must provide proc") unless on_update.is_a?(Proc)
+      @on_update = on_update
+    end
+
+    def on_error=(on_error)
+      fail(ArgumentError, "Must provide proc") unless on_error.is_a?(Proc)
+      @on_error = on_error
+    end
+
+    def on_visit=(on_visit)
+      fail(ArgumentError, "Must provide proc") unless on_visit.is_a?(Proc)
+      @on_visit = on_visit
+    end
+
     def authorize!
       return true unless CLLocationManager.authorizationStatus == KCLAuthorizationStatusNotDetermined
       manager.requestAlwaysAuthorization
@@ -112,21 +132,6 @@ module Locman
 
     def stop_monitor!
       manager.stopMonitoringSignificantLocationChanges
-    end
-
-    def on_update=(on_update)
-      fail(ArgumentError, "Must provide proc") unless on_update.is_a?(Proc)
-      @on_update = on_update
-    end
-
-    def on_error=(on_error)
-      fail(ArgumentError, "Must provide proc") unless on_error.is_a?(Proc)
-      @on_error = on_error
-    end
-
-    def on_visit=(on_visit)
-      fail(ArgumentError, "Must provide proc") unless on_visit.is_a?(Proc)
-      @on_visit = on_visit
     end
 
     # Delegates
