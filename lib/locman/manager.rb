@@ -71,7 +71,7 @@ module Locman
 
     # Sets whether location should be updated on the background or not.
     def background=(background)
-      if !background.is_a?(TrueClass) || !background.is_a?(FalseClass)
+      if !background.is_a?(TrueClass) && !background.is_a?(FalseClass)
         fail(ArgumentError, "Background should be boolean")
       end
 
