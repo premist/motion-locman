@@ -116,7 +116,7 @@ module Locman
       nil
     end
 
-    def start!
+    def update!
       if CLLocationManager.authorizationStatus != KCLAuthorizationStatusAuthorized
         fail(Exception, "Location permission is not authorized by user")
       end
@@ -124,24 +124,24 @@ module Locman
       manager.startUpdatingLocation
     end
 
-    def stop!
+    def stop_update!
       manager.stopUpdatingLocation
     end
 
-    def start_monitor!
+    def update_significant!
       manager.startMonitoringSignificantLocationChanges
     end
 
-    def start_monitor_visits!
+    def stop_update_significant!
+      manager.stopMonitoringSignificantLocationChanges
+    end
+
+    def update_visits!
       manager.startMonitoringVisits
     end
 
-    def stop_monitor_visits!
+    def stop_update_visits!
       manager.stopMonitoringVisits
-    end
-
-    def stop_monitor!
-      manager.stopMonitoringSignificantLocationChanges
     end
 
     # Delegates
