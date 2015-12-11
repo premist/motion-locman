@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 
 Gem::Specification.new do |spec|
   spec.name          = "motion-locman"
