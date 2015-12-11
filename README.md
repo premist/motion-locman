@@ -22,7 +22,7 @@ Initialize a new **Locman::Manager**, request for user authorization:
 
 ```ruby
 @manager = Locman::Manager.new(
-  background: true, # for background udpates
+  background: true, # for background updates
   accuracy: :ten_meters,
   distance_filter: 20 # in meter
 )
